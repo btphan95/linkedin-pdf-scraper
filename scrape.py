@@ -7,8 +7,8 @@ import pandas as pd
 
 
 def main(argv):
+  input_file = os.path.abspath(argv.input)
   output_file = os.path.abspath(argv.output)
-    input_file = os.path.abspath(argv.input)
 
   #extracting pdf
   pdf = pdfplumber.open(input_file)
