@@ -11,7 +11,9 @@ Click the badge above for a live demo on Google Colab! Simply "Save a copy" of t
 Requirements
 ============
 python
+
 pdfplumber
+
 pandas
 
 Usage
