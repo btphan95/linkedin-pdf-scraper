@@ -257,11 +257,11 @@ def main(argv):
   writer.save()
   print('done! Wrote to ', output_file)
 
-  if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-i', '--input', required = True, help = "input pdf file")
-    parser.add_argument('-o', '--output', required = True, help = 'output xlsx file')
-    args = parser.parse_args()
-    if not os.path.exists(args.input):
-        exit("Please specify an existing direcory using the -i parameter.")
-    main(args)
+if __name__ == "__main__":
+  parser = argparse.ArgumentParser()
+  parser.add_argument('-i', '--input', required = True, help = "input pdf file")
+  parser.add_argument('-o', '--output', required = True, help = 'output xlsx file')
+  args = parser.parse_args()
+  if not os.path.exists(args.input):
+      exit("Please specify an existing direcory using the -i parameter.")
+  main(args)
