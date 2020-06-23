@@ -11,6 +11,7 @@ def main(argv):
   output_file = os.path.abspath(argv.output)
 
   #extracting pdf
+  print('extracting pdf')
   pdf = pdfplumber.open(input_file)
   pages = pdf.pages
   profiles = [""]
