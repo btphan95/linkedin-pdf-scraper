@@ -17,7 +17,8 @@ def main(argv):
   profiles = [""]
   i = 0
   for page in pages:
-    if '12/15/2019—Status set to "@@system.status.new" for "HR" by Jean-Philippe Richer' not in page.extract_text():
+    invalid_page = re.match(r'Profile Notes and Activity\(\d*\)', page.extract_text())
+    if invalid_page:
       profiles[i] += page.extract_text() + '\n'
     else:
       i += 1
