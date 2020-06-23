@@ -14,7 +14,10 @@ python
 
 pdfplumber
 
+xlsxwriter
+
 pandas
+
 
 Usage
 ============
