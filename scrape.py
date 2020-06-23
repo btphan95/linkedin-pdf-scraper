@@ -17,8 +17,7 @@ def main(argv):
   profiles = [""]
   i = 0
   for page in pages:
-    invalid_page = re.match(r'Profile Notes and Activity\(\d*\)', page.extract_text())
-    if invalid_page:
+    if 'Profile Notes and Activity' not in page.extract_text():
       profiles[i] += page.extract_text() + '\n'
     else:
       i += 1
