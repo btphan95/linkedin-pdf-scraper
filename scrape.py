@@ -99,7 +99,7 @@ def main(argv):
             end_re = re.search(r'(.+) \(', dates.group(2))
             if end_re:
               end = end_re.group(1)
-            year_re = re.search(r'.*(\d+) (year)+.*', dates.group(2))
+            year_re = re.search(r'.*?(\d+) (year)+.*', dates.group(2))
             if year_re:
               year = year_re.group(1)
             month_re = re.search(r'.*(\d+) (month)+.*', dates.group(2))
