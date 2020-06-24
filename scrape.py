@@ -171,6 +171,11 @@ def main(argv):
   studies = []
   starts = []
   ends = []
+  school_keywords = ['University', 'Univ', 'Institu', 'College', 'School', 'Academy']
+  degree_keywords = ['Bachelor', 'Master', 'Associate', 'B.S.', 'A.A.',
+                      'M.S.', 'BS', 'AA', 'MS']
+  school_keywords = '|'.join(['(' + x + ')+' for x in school_keywords])
+  degree_keywords = '|'.join(['(' + x + ')+.*' for x in degree_keywords])
 
   for profile in profiles:
     name = profile[0]
@@ -180,21 +185,13 @@ def main(argv):
       while(i + 1< len(profile)):
         #if school present, add it
         school = '--'
-        if (re.search(r'(University)+', profile[i+1], re.IGNORECASE) or
-           re.search(r'(Univ)+', profile[i+1], re.IGNORECASE) or
-           re.search(r'(Institu)+', profile[i+1], re.IGNORECASE) or
-           re.search(r'(College)+', profile[i+1], re.IGNORECASE) or
-           re.search(r'(School)+', profile[i+1], re.IGNORECASE)):
+        if re.compile(r'%s' % (school_keywords), re.IGNORECASE).search(profile[i+1]):
           school = profile[i+1]
         line = '--'
         
         #grab the degree
         if i + 3 < len(profile):
-          if (re.search(r'(University)+', profile[i+3], re.IGNORECASE) or
-           re.search(r'(Univ)+', profile[i+3], re.IGNORECASE) or
-           re.search(r'(Institu)+', profile[i+3], re.IGNORECASE) or
-           re.search(r'(College)+', profile[i+3], re.IGNORECASE) or
-           re.search(r'(School)+', profile[i+3], re.IGNORECASE)):
+          if re.compile(r'%s' % (school_keywords), re.IGNORECASE).search(profile[i+3]):
             line = profile[i+2]
             next_i = 2
             
@@ -205,16 +202,7 @@ def main(argv):
           line = profile[i+2]
           next_i = 3
         degree = '--'
-        if (re.search(r'(Bachelor)+.*,', line, re.IGNORECASE) or
-            re.search(r'(Master)+.*,', line, re.IGNORECASE) or
-            re.search(r'(Associate)+.*,', line, re.IGNORECASE) or
-            re.search(r'(B.S.)+.*,', line, re.IGNORECASE) or
-            re.search(r'(A.A.)+.*,', line, re.IGNORECASE) or
-            re.search(r'(M.S.)+.*,', line, re.IGNORECASE) or
-            re.search(r'(BS)+.*,', line, re.IGNORECASE) or
-            re.search(r'(AA)+.*,', line, re.IGNORECASE) or
-            re.search(r'(MS)+.*,', line, re.IGNORECASE) or
-            re.search(r'(School)+.*,', line, re.IGNORECASE)):
+        if re.compile(r'%s' % (degree_keywords), re.IGNORECASE).search(line):
           degree = re.search(r'^.*?,', line).group()
           line = line.replace(degree, '')
         
@@ -254,7 +242,7 @@ def main(argv):
   worksheet.write('U1', 'Education')
   print('compiled education')
   writer.save()
-  print('done! Wrote to ', output_file)
+  print('wrote to profiles.xlsx')
 
 if __name__ == "__main__":
   parser = argparse.ArgumentParser()
